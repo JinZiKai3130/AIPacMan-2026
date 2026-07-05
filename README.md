@@ -1,4 +1,4 @@
-# PPCA-AIPacMan-2025
+# PPCA-AIPacMan-2026
 
 PPCA AI 吃豆人项目
 
@@ -67,8 +67,6 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/f
 
 相关文件和介绍在 [search](https://github.com/ACMClassCourse-2023/PPCA-AIPacMan-2024/tree/main/search) 文件夹下。
 
-## Week2
-
 ### MultiAgent
 
 相关文件和介绍在 [multiagent](https://github.com/ACMClassCourse-2023/PPCA-AIPacMan-2024/tree/main/multiagent) 文件夹下。
@@ -77,18 +75,24 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/f
 
 相关文件和介绍在 [logic](https://github.com/ACMClassCourse-2023/PPCA-AIPacMan-2024/tree/main/logic) 文件夹下。
 
+## Week2
+
 ### Tracking
 
 相关文件和介绍在 [tracking](https://github.com/ACMClassCourse-2023/PPCA-AIPacMan-2024/tree/main/tracking) 文件夹下。
-
-## Week3
 
 ### Machine Learning
 
 相关文件和介绍在 [machinelearning](https://github.com/ACMClassCourse-2023/PPCA-AIPacMan-2024/tree/main/machinelearning) 文件夹下。
 
-## Week4
-
 ### Reinforcement Learning
 
 相关文件和介绍在 [reinforcement](https://github.com/ACMClassCourse-2023/PPCA-AIPacMan-2024/tree/main/reinforcement) 文件夹下。
+
+## Week3
+
+### CUDA GEMM
+
+仓库为 [https://github.com/Conless/cuda-playground](https://github.com/Conless/cuda-playground)
+
+本地运行需要 NVIDIA 显卡，无法本地运行的同学可以去了解一下 [Google Colab](https://colab.research.google.com/)
