@@ -30,7 +30,18 @@ def shopSmart(orderList, fruitShops):
         fruitShops: List of FruitShops
     """
     "*** YOUR CODE HERE ***"
-    return None
+    finalpirce = 100000000000000000
+    finalname = ""
+    for curshop in fruitShops:
+        curprice = 0.0
+        for fruitname,num in orderList:
+            curprice += curshop.getCostPerPound(fruitname) * num
+
+        if curprice < finalpirce:
+            finalpirce = curprice
+            finalname = curshop.getName()
+
+    return "<FruitShop: " + finalname + ">"
 
 
 if __name__ == '__main__':
