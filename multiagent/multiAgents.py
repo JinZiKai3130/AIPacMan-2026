@@ -266,6 +266,33 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
       Your expectimax agent (question 4)
     """
 
+    def expectimax(self, state: GameState, depth, agentIndex):
+        if depth == self.depth or state.isWin() or state.isLose():
+            return self.evaluationFunction(state)
+        
+        numAgents = state.getNumAgents()
+
+        nextAgent = agentIndex + 1
+        nextDepth = depth
+        if nextAgent == numAgents:
+            nextAgent = 0
+            nextDepth = depth + 1
+
+        legalActions = state.getLegalActions(agentIndex)
+
+        if agentIndex == 0:
+            value = float("-inf")
+            for action in legalActions:
+                successor = state.generateSuccessor(agentIndex, action)
+                value = max(value, self.expectimax(successor, nextDepth, nextAgent))
+            return value
+        else:
+            value = 0
+            for action in legalActions:
+                successor = state.generateSuccessor(agentIndex, action)
+                value += self.expectimax(successor, nextDepth, nextAgent)
+            return value / len(legalActions)
+
     def getAction(self, gameState: GameState):
         """
         Returns the expectimax action using self.depth and self.evaluationFunction
@@ -274,6 +301,17 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
         legal moves.
         """
         "*** YOUR CODE HERE ***"
+        bestScore = float("-inf")
+        bestAction = None
+
+        for action in gameState.getLegalActions(0):
+            successor = gameState.generateSuccessor(0, action)
+            score = self.expectimax(successor, 0, 1)
+            if score > bestScore:
+                bestScore = score
+                bestAction = action
+
+        return bestAction
         util.raiseNotDefined()
 
 def betterEvaluationFunction(currentGameState: GameState):
@@ -284,6 +322,39 @@ def betterEvaluationFunction(currentGameState: GameState):
     DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
+    pos = currentGameState.getPacmanPosition()
+    food = currentGameState.getFood()
+    ghostStates = currentGameState.getGhostStates()
+    scaredTimes = [g.scaredTimer for g in ghostStates]
+
+    score = currentGameState.getScore()
+    capsules = currentGameState.getCapsules()
+
+    foodList = food.asList()
+    if len(foodList) > 0:
+        minFoodDist = min([manhattanDistance(pos, food) for food in foodList])
+        # 寻找最小的曼哈顿距离
+        score += 10.0 / (minFoodDist + 1)
+
+    for i, ghostState in enumerate(ghostStates):
+        ghostPos = ghostState.getPosition()
+        ghostDist = manhattanDistance(pos, ghostPos)
+
+        if scaredTimes[i] > 0:
+            if ghostDist > 0:
+                score += 200.0 / ghostDist
+        else:
+            if ghostDist < 2:
+                score -= 500
+
+        
+    if len(capsules) > 0:
+        minCapsuleDist = min([manhattanDistance(pos, cap) for cap in capsules])
+        score += 5.0 / (minCapsuleDist + 1)
+
+    score -= 4 * len(foodList)
+
+    return score
     util.raiseNotDefined()
 
 # Abbreviation
