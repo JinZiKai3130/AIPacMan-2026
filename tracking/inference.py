@@ -586,7 +586,12 @@ class ExactInference(InferenceModule):
         position is known.
         """
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        pacmanPos = gameState.getPacmanPosition()
+        jailPos = self.getJailPosition()
+
+        for pos in self.allPositions:
+            likelihood = self.getObservationProb(observation, pacmanPos, pos, jailPos)
+            self.beliefs[pos] = self.beliefs[pos] * likelihood
         "*** END YOUR CODE HERE ***"
         self.beliefs.normalize()
     
