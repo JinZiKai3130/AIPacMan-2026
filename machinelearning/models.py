@@ -195,6 +195,9 @@ class DigitClassificationModel(Module):
         input_size = 28 * 28
         output_size = 10
         "*** YOUR CODE HERE ***"
+        self.layer1 = Linear(784, 256)
+        self.layer2 = Linear(256, 128)
+        self.layer3 = Linear(128, 10)
 
 
 
@@ -213,6 +216,9 @@ class DigitClassificationModel(Module):
                 (also called logits)
         """
         """ YOUR CODE HERE """
+        h1 = relu(self.layer1(x))
+        h2 = relu(self.layer2(h1))
+        return self.layer3(h2)
 
 
     def get_loss(self, x, y):
@@ -229,6 +235,7 @@ class DigitClassificationModel(Module):
         Returns: a loss tensor
         """
         """ YOUR CODE HERE """
+        return cross_entropy(self.run(x), y)
 
         
 
@@ -237,6 +244,18 @@ class DigitClassificationModel(Module):
         Trains the model.
         """
         """ YOUR CODE HERE """
+        optimizer = optim.Adam(self.parameters(), lr=0.001)
+        dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
+        for _ in range(800):
+            for batch in dataloader:
+                optimizer.zero_grad()
+                loss = self.get_loss(batch['x'], batch['label'])
+                loss.backward()
+                optimizer.step()
+
+            val_acc = dataset.get_validation_accuracy()
+            if val_acc >= 0.97:
+                break
 
 
 
@@ -258,6 +277,10 @@ class LanguageIDModel(Module):
         super(LanguageIDModel, self).__init__()
         "*** YOUR CODE HERE ***"
         # Initialize your model parameters here
+        hidden_size = 128
+        self.layer1 = Linear(self.num_chars, hidden_size)
+        self.layer2 = Linear(hidden_size, hidden_size)
+        self.layer3 = Linear(hidden_size, 5)
 
 
     def run(self, xs):
@@ -290,6 +313,10 @@ class LanguageIDModel(Module):
                 (also called logits)
         """
         "*** YOUR CODE HERE ***"
+        h = ones(xs[0].shape[0], 128) * 0.0
+        for x_t in xs:
+            h = relu(self.layer1(x_t) + self.layer2(h))
+        return self.layer3(h)
 
     
     def get_loss(self, xs, y):
@@ -307,6 +334,7 @@ class LanguageIDModel(Module):
         Returns: a loss node
         """
         "*** YOUR CODE HERE ***"
+        return cross_entropy(self.run(xs), y)
 
 
     def train(self, dataset):
@@ -324,6 +352,19 @@ class LanguageIDModel(Module):
         For more information, look at the pytorch documentation of torch.movedim()
         """
         "*** YOUR CODE HERE ***"
+        optimizer = optim.Adam(self.parameters(), lr=0.001)
+        dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
+        for _ in range(800):
+            for batch in dataloader:
+                optimizer.zero_grad()
+                xs = movedim(batch['x'], 0, 1)
+                loss = self.get_loss(xs, batch['label'])
+                loss.backward()
+                optimizer.step()
+
+            val_acc = dataset.get_validation_accuracy()
+            if val_acc >= 0.81:
+                break
 
         
 
