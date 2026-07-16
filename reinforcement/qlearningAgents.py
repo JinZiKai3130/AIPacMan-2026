@@ -58,6 +58,7 @@ class QLearningAgent(ReinforcementAgent):
           or the Q node value otherwise
         """
         "*** YOUR CODE HERE ***"
+        return self.qVals.get((state, action), 0.0)
 
 
 
@@ -69,6 +70,14 @@ class QLearningAgent(ReinforcementAgent):
           terminal state, you should return a value of 0.0.
         """
         "*** YOUR CODE HERE ***"
+        legalActions = self.getLegalActions(state)
+        if not legalActions:
+            return 0.0
+        
+        result = float('-inf')
+        for action in legalActions:
+            result = max(result, self.getQValue(state, action))
+        return result
         
 
     def computeActionFromQValues(self, state):
@@ -78,6 +87,17 @@ class QLearningAgent(ReinforcementAgent):
           you should return None.
         """
         "*** YOUR CODE HERE ***"
+        legalActions = self.getLegalActions(state)
+        if not legalActions:
+            return None
+        
+        result = float('-inf')
+        bestAction = None
+        for action in legalActions:
+            if self.getQValue(state, action) > result:
+                bestAction = action
+                result = self.getQValue(state, action)
+        return bestAction
         
 
     def getAction(self, state):
@@ -94,6 +114,13 @@ class QLearningAgent(ReinforcementAgent):
         legalActions = self.getLegalActions(state)
         action = None
         "*** YOUR CODE HERE ***"
+        if not legalActions:
+            return None
+        
+        if util.flipCoin(self.epsilon):
+            return random.choice(legalActions)
+        else:
+            return self.computeActionFromQValues(state)
 
 
     def update(self, state, action, nextState, reward: float):
@@ -105,6 +132,10 @@ class QLearningAgent(ReinforcementAgent):
           it will be called on your behalf
         """
         "*** YOUR CODE HERE ***"
+        oldQ = self.getQValue(state, action)
+        sample = reward + self.discount * self.getValue(nextState)
+        newQ = oldQ + self.alpha * (sample - oldQ)
+        self.qVals[(state, action)] = newQ
  
 
     def getPolicy(self, state):
