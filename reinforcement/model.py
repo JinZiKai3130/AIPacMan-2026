@@ -25,13 +25,12 @@ class DeepQNetwork(Module):
         # and self.batch_size!
         "*** YOUR CODE HERE ***"
         self.learning_rate = 0.08
-        self.numTrainingGames = 2000
+        self.numTrainingGames = 7000
         self.batch_size = 32
 
         self.layer1 = Linear(state_dim, 64)
         self.layer2 = Linear(64, 64)
         self.layer3 = Linear(64, action_dim)
-        
         self.optimizer = optim.SGD(self.parameters(), lr=self.learning_rate)
         "**END CODE"""
         self.double()
