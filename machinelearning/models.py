@@ -37,7 +37,7 @@ class PerceptronModel(Module):
         super(PerceptronModel, self).__init__()
         
         "*** YOUR CODE HERE ***"
-        self.w = Parameter(ones(1, dimensions)) #Initialize your weights here
+        self.w = Parameter(ones(1, dimensions))
 
     def get_weights(self):
         """

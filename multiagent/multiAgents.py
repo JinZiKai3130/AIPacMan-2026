@@ -199,7 +199,6 @@ class MinimaxAgent(MultiAgentSearchAgent):
                 bestAction = action
 
         return bestAction
-        util.raiseNotDefined()
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
@@ -259,7 +258,6 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
             alpha = max(alpha, score)
 
         return bestAction
-        util.raiseNotDefined()
 
 class ExpectimaxAgent(MultiAgentSearchAgent):
     """
@@ -312,7 +310,6 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
                 bestAction = action
 
         return bestAction
-        util.raiseNotDefined()
 
 def betterEvaluationFunction(currentGameState: GameState):
     """
@@ -347,7 +344,6 @@ def betterEvaluationFunction(currentGameState: GameState):
             if ghostDist < 2:
                 score -= 500
 
-        
     if len(capsules) > 0:
         minCapsuleDist = min([manhattanDistance(pos, cap) for cap in capsules])
         score += 5.0 / (minCapsuleDist + 1)
@@ -355,7 +351,6 @@ def betterEvaluationFunction(currentGameState: GameState):
     score -= 4 * len(foodList)
 
     return score
-    util.raiseNotDefined()
 
 # Abbreviation
 better = betterEvaluationFunction

@@ -54,7 +54,6 @@ def sentence1() -> Expr:
     S2 = ~Expr("A") % (~Expr("B") | Expr("C"))
     S3 = disjoin([~Expr("A"), ~Expr("B"), Expr("C")])
     return conjoin([S1, S2, S3])
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 
@@ -72,7 +71,6 @@ def sentence2() -> Expr:
     S3 = (~(Expr("B") & (~Expr("C")))) >> Expr("A")
     S4 = (~Expr("D")) >> Expr("C")
     return conjoin([S1, S2, S3, S4])
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 
@@ -98,7 +96,6 @@ def sentence3() -> Expr:
     S2 = ~(PacmanAlive_0 & PacmanBorn_0)
     S3 = PacmanBorn_0
     return conjoin([S1, S2, S3])
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 def findModel(sentence: Expr) -> Dict[Expr, bool]:
@@ -118,7 +115,6 @@ def findModelUnderstandingCheck() -> Dict[Expr, bool]:
     a.op = 'a'
     print("a.__dict__ is:", a.__dict__) # might be helpful for getting ideas
     return {a: True}
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 def entails(premise: Expr, conclusion: Expr) -> bool:
@@ -126,7 +122,6 @@ def entails(premise: Expr, conclusion: Expr) -> bool:
     """
     "*** BEGIN YOUR CODE HERE ***"
     return findModel(premise & ~conclusion) == False
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 def plTrueInverse(assignments: Dict[Expr, bool], inverse_statement: Expr) -> bool:
@@ -135,7 +130,6 @@ def plTrueInverse(assignments: Dict[Expr, bool], inverse_statement: Expr) -> boo
     """
     "*** BEGIN YOUR CODE HERE ***"
     return (pl_true(~inverse_statement, assignments))
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 #______________________________________________________________________________
@@ -162,7 +156,6 @@ def atLeastOne(literals: List[Expr]) -> Expr:
     """
     "*** BEGIN YOUR CODE HERE ***"
     return disjoin(literals)
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 
@@ -175,7 +168,6 @@ def atMostOne(literals: List[Expr]) -> Expr:
     """
     "*** BEGIN YOUR CODE HERE ***"
     return conjoin([(~a | ~b) for a, b in itertools.combinations(literals, 2)])
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 
@@ -187,7 +179,6 @@ def exactlyOne(literals: List[Expr]) -> Expr:
     """
     "*** BEGIN YOUR CODE HERE ***"
     return atLeastOne(literals) & atMostOne(literals)
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 #______________________________________________________________________________
@@ -221,7 +212,6 @@ def pacmanSuccessorAxiomSingle(x: int, y: int, time: int, walls_grid: List[List[
     
     "*** BEGIN YOUR CODE HERE ***"
     return PropSymbolExpr(pacman_str, x, y, time = now) % disjoin(possible_causes)
-    util.raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 
@@ -472,6 +462,7 @@ def localization(problem, agent) -> Generator:
         KB.append(pacphysicsAxioms(t, all_coords, non_outer_wall_coords, walls_grid, sensorAxioms, allLegalSuccessorAxioms))
 
         KB.append(PropSymbolExpr(agent.actions[t], time = t))
+
         percepts = agent.getPercepts()
         KB.append(fourBitPerceptRules(t, percepts))
 

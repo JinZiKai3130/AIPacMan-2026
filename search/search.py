@@ -101,7 +101,6 @@ def depthFirstSearch(problem: SearchProblem):
         for successor in problem.getSuccessors(curstate) :
             stack.push((successor[0], curaction + [successor[1]]))
     return []
-    util.raiseNotDefined()
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
@@ -120,7 +119,6 @@ def breadthFirstSearch(problem: SearchProblem):
         for successor in problem.getSuccessors(curstate):
             queue.push((successor[0], curaction + [successor[1]]))
     return []
-    util.raiseNotDefined()
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
@@ -140,7 +138,6 @@ def uniformCostSearch(problem: SearchProblem):
             newcost = curcost + successor[2]
             pq.push((successor[0], curaction + [successor[1]], newcost), newcost)
     return []
-    util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
     """
@@ -168,7 +165,6 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
             newpriority = newcost + heuristic(successor[0], problem)
             pq.push((successor[0], curaction + [successor[1]], newcost), newpriority)
     return []
-    util.raiseNotDefined()
 
 
 # Abbreviations
