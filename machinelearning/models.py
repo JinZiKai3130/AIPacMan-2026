@@ -157,7 +157,7 @@ class RegressionModel(Module):
             
         """
         "*** YOUR CODE HERE ***"
-        optimizer = optim.Adam(self.parameters(), lr=0.001)
+        optimizer = optim.Adam(self.parameters(), lr=0.005)
         dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
         for _ in range(800):
             for batch in dataloader:
